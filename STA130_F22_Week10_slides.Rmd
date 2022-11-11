@@ -2,7 +2,7 @@
 title: 'Week 10: Multivariate Regression Improved Prediction'
 subtitle: 'Modeling and Predicting Using Many Variables'
 author: "Scott Schwartz"
-date: "May 18, 2021"
+date: "Nov 14, 2022"
 output:
   beamer_presentation:
     theme: Pittsburgh
@@ -102,8 +102,8 @@ lm(height~shoePrint+sex, data=heights) %>% tidy() %>% as.matrix() # R^2 0.690914
 \begin{tabular}{lll}
 ${}$\\
 \textbf{Hypothesis Testing} & \textbf{Estimation}* & \textbf{Model Prediction}\\\hline\\
-$H_0: \beta_{1} = 0 \text{ reject at } \alpha=0.5$ & $\hat \beta_{1} = 2.007926$ & $\hat y_i \approx 112.7 + 2 x_{1i} + 7 \times \text{I}(x_{2i}=\text{M})$ \\
-$H_0: \beta_{2} = 0 \overset{\text{\normalsize fail to}}{\text{ reject }} \text{at } \alpha=0.5$ & $\hat \beta_{2} = 7.001892$ & $R^2 \texttt{ 0.6909145}$\\
+$H_0: \beta_{1} = 0 \text{ reject at } \alpha=0.05$ & $\hat \beta_{1} = 2.007926$ & $\hat y_i \approx 112.7 + 2 x_{1i} + 7 \times \text{I}(x_{2i}=\text{M})$ \\
+$H_0: \beta_{2} = 0 \overset{\text{\normalsize fail to}}{\text{ reject }} \text{at } \alpha=0.05$ & $\hat \beta_{2} = 7.001892$ & $R^2 \texttt{ 0.6909145}$\\
 ${}$\\
 \end{tabular}
 
@@ -383,14 +383,15 @@ The "80/20 rule" for a Train-Test Split analysis is
 $R^2=1- \frac{\sum_{i=1}^n(y_i - \hat y_i)^2}{\sum_{i=1}^n(y_i - \bar y)^2}$ is one possible model score; but, it's simpler to just use
 \vspace{-.7cm}
 
-\LARGE $$\text{Root Mean Square Error}\quad\text{RMSE} = \sqrt{\frac{1}{n}\sum_{j=1}^m (y_i - \hat y_i)^2}$$
+\LARGE $$\text{Root Mean Square Error}\quad\text{RMSE} = \sqrt{\frac{1}{n}\sum_{j=1}^m (y_j - \hat y_j)^2}$$
 
 \normalsize
 
-- $\hat y_i$ is the prediction from the model fit using 80% of the data
-- $j$ indexes over the $m$ data comprising the remaining 20% 
+- $\hat y_j$ is the prediction from the model fit using 80% of the data
+- $j$ indexes over the $m$ data points comprising the remaining 20% 
 - The square root keeps the original (rather than squared) units
-- And the denomenator isn't $n-1$ like when estimating variance
+- And the denominator isn't $n-1$ like when estimating variance
+
 
 
 ## An Alternative Method: 80/20 Train-Test Split
@@ -434,7 +435,7 @@ doesn't work well for the remaing 20\% of the data, which could happen if}
 \small 
 
 \begin{itemize}
-\item The subsample aren't "representative" to begin with
+\item The subsamples aren't 'representative' to start with
 \item The model is overly specific to 80\% of the data
 \end{itemize}
 
@@ -503,15 +504,15 @@ for `lm(height~shoePrint+sex)`
 ```{r, size="footnotesize"}
 model <- lm(height~shoePrint, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 
 model <- lm(height~sex, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 
 model <- lm(height~shoePrint+sex, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 ```
 
 - But there is train-test evidence
@@ -549,15 +550,15 @@ for `lm(height~shoePrint+sex)`
 ```{r, size="footnotesize"}
 model <- lm(height~shoePrint, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 
 model <- lm(height~sex, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 
 model <- lm(height~shoePrint+sex, data=train)
 yhat_test <- predict(model, newdata=test)
-sqrt(mean(test$height-yhat_test)^2)
+sqrt(mean((test$height-yhat_test)^2))
 ```
 
 - But there is train-test evidence?
