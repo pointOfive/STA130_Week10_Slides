@@ -255,7 +255,7 @@ heights %>% ggplot(aes(
 ```
 
 
-Thus, the "effect" of each variable detracts from each other, reducing both p-values 
+Thus, the "effect" of each variable detracts from each other, increasing both p-values 
 
 
 
@@ -886,7 +886,7 @@ library(broom); mariokart2 %>% ggplot(aes(
 
 \vspace{-.135in}
 \begin{align*}
-\quad \hat y_i = {} & \hat \beta_0 + \hat \beta_1 x_{1i} + \hat \beta_2 \text{I}(x_{2i}=\text{used}) + \hat \beta_3 x_{1i}(x_{2i}=\text{used})\\
+\quad \hat y_i = {} & \hat \beta_0 + \hat \beta_1 x_{1i} + \hat \beta_2 \text{I}(x_{2i}=\text{used}) + \hat \beta_3 x_{1i}\text{I}(x_{2i}=\text{used})\\
 \approx {} & 58.3 -2.0 \times \texttt{duration}_{i} -17.1 \times \text{I} (\texttt{cond}_{i}=\text{used}) + 2.3 \times \texttt{duration}_{i} \times \text{I}(\texttt{cond}_{i}=\text{used})
 \end{align*}
 
